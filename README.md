@@ -1,3 +1,4 @@
 # Aiogram-Template
 Pythonda Aiogramdan foydalanib bot yaratish uchun shablon
-ffs
+
+.env_example change to .env
