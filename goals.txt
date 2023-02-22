@@ -1,0 +1,4 @@
+1) Majburiy obuna => 50%
+2) Buttons => Loading
+3) Configuration functions => Loading
+4) Admin panel => Loading

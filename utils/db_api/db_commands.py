@@ -47,7 +47,8 @@ class Database:
         id SERIAL PRIMARY KEY,
         full_name VARCHAR(255) NOT NULL,
         username varchar(255) NULL,
-        user_id BIGINT NOT NULL UNIQUE
+        user_id BIGINT NOT NULL UNIQUE,
+        issubs TEXT NULL
         );
         """
         await self.execute(sql, execute=True)
@@ -59,15 +60,15 @@ class Database:
         )
         return sql, tuple(parameters.values())
 
-    async def add_user(self, full_name: str, username: str, user_id: int):
-        sql = "INSERT INTO users (full_name, username, user_id) VALUES($1, $2, $3) returning *"
-        return await self.execute(sql, full_name, username, user_id, fetchrow=True)
+    async def add_user(self, full_name: str, username: str, user_id: int, issubs: str = 'false'):
+        sql = "INSERT INTO users (full_name, username, user_id, issubs) VALUES($1, $2, $3, $4) returning *"
+        return await self.execute(sql, full_name, username, user_id, issubs, fetchrow=True)
 
     async def select_all_users(self):
         sql = "SELECT * FROM Users"
         return await self.execute(sql, fetch=True)
 
-    async def select_one_users(self, user_id):
+    async def select_one_user(self, user_id):
         sql = "SELECT * FROM Users WHERE user_id=$1"
         return await self.execute(sql, user_id, fetch=True)
 
