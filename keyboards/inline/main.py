@@ -11,6 +11,23 @@ main = InlineKeyboardMarkup(
     ]
 )
 
+admin_main = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text="🌸 Tabrik yasash",
+                callback_data='createcard'
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='💻 Admin panel',
+                callback_data='adminpanel'
+        )
+        ]
+    ]
+)
+
 def range_numbers():
     numbers = InlineKeyboardMarkup(row_width=3)
     for number in range(1, 10):
@@ -20,12 +37,12 @@ def range_numbers():
                 callback_data=f'{number}-type'
             )
         )
-    numbers.insert(
-        InlineKeyboardButton(
-            text="◀️ Orqaga",
-            callback_data='back'
-        )
-    )
+    # numbers.insert(
+    #     InlineKeyboardButton(
+    #         text="◀️ Orqaga",
+    #         callback_data='back'
+    #     )
+    # )
     return numbers
 
 def share(url):

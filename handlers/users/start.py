@@ -4,7 +4,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.dispatcher import FSMContext
 
 from data.config import CHANNELS
-from keyboards.inline.main import main
+from keyboards.inline.main import main, admin_main
 from data.config import ADMINS
 from loader import dp, db, bot
 from utils.misc.subscription import check
@@ -32,24 +32,40 @@ async def bot_start(message: types.Message, state: FSMContext):
     except:
         await bot.send_message(chat_id=ADMINS[0], text=f"{full_name} bazaga oldin qo'shilgan")
 
-    # We check if user is not subs to channel
-    for ch in CHANNELS:
-        status = await check(user_id=message.from_user.id, channel=ch)
 
-    if status == False:
-        markup = InlineKeyboardMarkup(row_width=1)
-        for channel in CHANNELS:
-            chat = await bot.get_chat(channel)
-            invite_link = await chat.export_invite_link()
-            markup.insert(InlineKeyboardButton(text=chat.title, url=invite_link))
-        markup.add(InlineKeyboardButton(text="✅ Obunani tekshirish", callback_data='check_subs'))
+    rows = await db.select_row_panel()
+    if len(rows) >= 1:
+        # We check if user is not subs to channel
+        for row in rows:
+            status = await check(user_id=message.from_user.id, channel=row[1])
+        if status == False:
+            markup = InlineKeyboardMarkup(row_width=1)
+            for channel in rows:
+                chat = await bot.get_chat(channel[1])
+                invite_link = await chat.export_invite_link()
+                markup.insert(InlineKeyboardButton(text=chat.title, url=invite_link))
+            markup.add(InlineKeyboardButton(text="✅ Obunani tekshirish", callback_data='check_subs'))
 
-        text = f"<b>Assalomu aleykum</b>, {full_name}! Botdan to'liq foydalanish uchun homiy kanallarimizga a'zo " \
-               f"bo'ling"
-        await message.answer(text=text, reply_markup=markup, disable_web_page_preview=True)
-        await state.finish()
+            text = f"<b>Assalomu aleykum</b>, {full_name}! Botdan to'liq foydalanish uchun homiy kanallarimizga a'zo " \
+                   f"bo'ling"
+            await message.answer(text=text, reply_markup=markup, disable_web_page_preview=True)
+            await state.finish()
 
+        else:
+            if user_id != int(ADMINS[0]):
+                text = f"Assalomu aleykum {full_name}! Botdan bemalol foydalanishingiz mumkin"
+                await message.answer(text=text, reply_markup=main)
+                await state.finish()
+            else:
+                text = f"Assalomu aleykum {full_name}! Botdan bemalol foydalanishingiz mumkin"
+                await message.answer(text=text, reply_markup=admin_main)
+                await state.finish()
     else:
-        text = f"Assalomu aleykum {full_name}! Botdan bemalol foydalanishingiz mumkin"
-        await message.answer(text=text, reply_markup=main)
-        await state.finish()
+        if user_id != int(ADMINS[0]):
+            text = f"Assalomu aleykum {full_name}! Botdan bemalol foydalanishingiz mumkin"
+            await message.answer(text=text, reply_markup=main)
+            await state.finish()
+        else:
+            text = f"Assalomu aleykum {full_name}! Botdan bemalol foydalanishingiz mumkin"
+            await message.answer(text=text, reply_markup=admin_main)
+            await state.finish()

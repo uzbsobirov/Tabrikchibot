@@ -10,3 +10,8 @@ class Type(StatesGroup):
     type6 = State()
     type7 = State()
     type8 = State()
+
+class Panel(StatesGroup):
+    stat = State()
+    reklama = State()
+    majburiy = State()

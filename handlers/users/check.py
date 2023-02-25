@@ -15,24 +15,31 @@ async def check_func(call: types.CallbackQuery, state: FSMContext):
 
     result = InlineKeyboardMarkup(row_width=1)
 
-    for channel in CHANNELS:
-        status = await check(user_id=call.from_user.id, channel=channel)
-        channel = await bot.get_chat(channel)
-        invite_link = await channel.export_invite_link()
-        if status is not True:
-            await db.update_user_issubs(user_id=user_id, issubs='false')
-            final_status *= False
-            result.insert(InlineKeyboardButton(text=f"❌ {channel.title}", url=invite_link))
-    result.add(InlineKeyboardButton(text="✅ Obunani tekshirish", callback_data='check_subs'))
+    rows = await db.select_row_panel()
+    if len(rows) >= 1:
+        for channel in rows:
+            status = await check(user_id=call.from_user.id, channel=channel[1])
+            channel = await bot.get_chat(channel[1])
+            invite_link = await channel.export_invite_link()
+            if status is not True:
+                await db.update_user_issubs(user_id=user_id, issubs='false')
+                final_status *= False
+                result.insert(InlineKeyboardButton(text=f"❌ {channel.title}", url=invite_link))
+        result.add(InlineKeyboardButton(text="✅ Obunani tekshirish", callback_data='check_subs'))
 
-    if final_status:
-        await db.update_user_issubs(user_id=user_id, issubs='true')
+        if final_status:
+            await db.update_user_issubs(user_id=user_id, issubs='true')
+            await call.message.delete()
+            await call.message.answer(text="<b>Xush kelibsiz! Bo'limlardan birini tanlang</b>", reply_markup=main)
+            await state.finish()
+        else:
+            await call.message.delete()
+            await call.message.answer(text="<b>❌Siz ba'zi kanallardan chiqib ketgansiz, agar kanallarga "
+                                           "ulanmasangiz botni ishlata olmaysiz</b>", reply_markup=result,
+                                      disable_web_page_preview=True)
+            await state.finish()
+    else:
         await call.message.delete()
         await call.message.answer(text="<b>Xush kelibsiz! Bo'limlardan birini tanlang</b>", reply_markup=main)
         await state.finish()
-    else:
-        await call.message.delete()
-        await call.message.answer(text="<b>❌Siz ba'zi kanallardan chiqib ketgansiz, agar kanallarga "
-                                       "ulanmasangiz botni ishlata olmaysiz</b>", reply_markup=result,
-                                    disable_web_page_preview=True)
-        await state.finish()
+

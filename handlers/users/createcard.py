@@ -127,5 +127,31 @@ async def satte_type1(message: types.Message, state: FSMContext):
         await message.answer_photo(photo=photo, caption=f'{text} ismiga rasm tayyor✅', reply_markup=share(url=url))
         await state.finish()
 
+@dp.callback_query_handler(text="5-type")
+async def number_func(call: types.CallbackQuery, state: FSMContext):
+    await call.message.delete()
+    text = "<b>Kim uchun tayyorlaymiz?</b>\n<i>Ism yozib yuboring...</i>"
+    await call.message.answer(text=text)
+    await Type.type5.set()
 
+@dp.message_handler(state=Type.type5)
+async def satte_type1(message: types.Message, state: FSMContext):
+    text = message.text
+
+    img = Image.open("media/5-type.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    text_size = draw.textbbox((120, 120), text, font=font)
+
+    x = (img.width - text_size[2]) / 2
+    y = 720
+
+    draw.text((x, y), text, font=font, fill='black')
+
+    img.save("media/results.jpg")
+    url = "http://telegram.me/share/url?url=%20Do'stlar%20Bu%20Bot%20judaham%20zo'r" \
+          "%20ekan%20siz%20ham%20harxil turdagi%20Tabriklar%20yasab%20oling%20%20http://t.me/protabrikbot"
+    with open(file='media/results.jpg', mode='rb') as photo:
+        await message.answer_photo(photo=photo, caption=f'{text} ismiga rasm tayyor✅', reply_markup=share(url=url))
+        await state.finish()
 
