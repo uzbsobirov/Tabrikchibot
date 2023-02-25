@@ -27,3 +27,13 @@ def range_numbers():
         )
     )
     return numbers
+
+def share(url):
+    markup = InlineKeyboardMarkup(row_width=1)
+    markup.insert(
+        InlineKeyboardButton(
+            text="⤴️ Do'stlarga ulashish",
+            url=url
+        )
+    )
+    return markup

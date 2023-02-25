@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 
-from keyboards.inline.main import range_numbers
+from keyboards.inline.main import range_numbers, share
 from loader import dp, db, bot
 
 from aiogram import types
@@ -9,211 +9,123 @@ from aiogram.dispatcher import FSMContext
 from states.one import Type
 @dp.callback_query_handler(text="createcard", state='*')
 async def create_card(call: types.CallbackQuery, state: FSMContext):
+    await call.message.delete()
 
     # Photo urls
-    photo1_url = 'https://t.me/forchrabot/55'
-    photo2_url = 'https://t.me/forchrabot/56'
-    photo3_url = 'https://t.me/forchrabot/57'
-    photo4_url = 'https://t.me/forchrabot/60'
-
-    await call.message.answer_photo(photo=photo1_url, caption="Keraklisini tanlang: ", reply_markup=range_numbers())
+    with open('media/main.png', 'rb') as photo:
+        await call.message.answer_photo(photo=photo, caption="Keraklisini tanlang: ", reply_markup=range_numbers())
 
 
 @dp.callback_query_handler(text="1-type")
 async def number_func(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
-    await call.message.answer(text="Ism kiriting...")
+    text = "<b>Kim uchun tayyorlaymiz?</b>\n<i>Ism yozib yuboring...</i>"
+    await call.message.answer(text=text)
     await Type.type1.set()
 
 @dp.message_handler(state=Type.type1)
 async def satte_type1(message: types.Message, state: FSMContext):
     text = message.text
 
-    # gfg_logo.jpeg image opened using open function and
-    # assigned to variable named img
-    img = Image.open('media/1-type.jpg')
+    img = Image.open("media/1-type.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    text_size = draw.textbbox((100, 100), text, font=font)
 
-    # Image is converted into editable form using Draw
-    # function and assigned to d1
-    d1 = ImageDraw.Draw(img)
+    x = (img.width - text_size[2]) / 2
+    y = 400
 
-    # Decide the text location, color and font
-    d1.text((600, 350), text, fill =(50, 255, 100))
-
-    # show and save the image
-    # img.show()
+    draw.text((x, y), text, font=font, fill='black')
     img.save("media/results.jpg")
+    url = "http://telegram.me/share/url?url=%20Do'stlar%20Bu%20Bot%20judaham%20zo'r" \
+              "%20ekan%20siz%20ham%20harxil turdagi%20Tabriklar%20yasab%20oling%20%20http://t.me/protabrikbot"
     with open(file='media/results.jpg', mode='rb') as photo:
-        await message.answer_photo(photo=photo, caption='Ol ino')
+        await message.answer_photo(photo=photo, caption=f'{text} ismiga rasm tayyor✅', reply_markup=share(url=url))
         await state.finish()
 
 @dp.callback_query_handler(text="2-type")
 async def number_func(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
-    await call.message.answer(text="Ism kiriting...")
+    text = "<b>Kim uchun tayyorlaymiz?</b>\n<i>Ism yozib yuboring...</i>"
+    await call.message.answer(text=text)
     await Type.type2.set()
 
 @dp.message_handler(state=Type.type2)
 async def satte_type1(message: types.Message, state: FSMContext):
     text = message.text
 
-    # gfg_logo.jpeg image opened using open function and
-    # assigned to variable named img
-    img = Image.open('media/2-type.jpg')
+    img = Image.open("media/2-type.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    text_size = draw.textbbox((100, 100), text, font=font)
 
-    # Image is converted into editable form using Draw
-    # function and assigned to d1
-    d1 = ImageDraw.Draw(img)
+    x = 320
+    y = 350
 
-    # Decide the text location, color and font
-    d1.text((600, 350), text, fill =(50, 255, 100))
+    draw.text((x, y), text, font=font, fill='black')
 
-    # show and save the image
-    # img.show()
     img.save("media/results.jpg")
+    url = "http://telegram.me/share/url?url=%20Do'stlar%20Bu%20Bot%20judaham%20zo'r" \
+          "%20ekan%20siz%20ham%20harxil turdagi%20Tabriklar%20yasab%20oling%20%20http://t.me/protabrikbot"
     with open(file='media/results.jpg', mode='rb') as photo:
-        await message.answer_photo(photo=photo, caption='Ol ino')
+        await message.answer_photo(photo=photo, caption=f'{text} ismiga rasm tayyor✅', reply_markup=share(url=url))
         await state.finish()
 
 @dp.callback_query_handler(text="3-type")
 async def number_func(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
-    await call.message.answer(text="Ism kiriting...")
+    text = "<b>Kim uchun tayyorlaymiz?</b>\n<i>Ism yozib yuboring...</i>"
+    await call.message.answer(text=text)
     await Type.type3.set()
 
 @dp.message_handler(state=Type.type3)
-async def satte_type1(message: types.Message, state: FSMContext):
+async def satte_type3(message: types.Message, state: FSMContext):
     text = message.text
 
-    # gfg_logo.jpeg image opened using open function and
-    # assigned to variable named img
-    img = Image.open('media/3-type.jpg')
+    img = Image.open("media/3-type.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    text_size = draw.textbbox((120, 120), text, font=font)
 
-    # Image is converted into editable form using Draw
-    # function and assigned to d1
-    d1 = ImageDraw.Draw(img)
+    x = (img.width - text_size[2]) / 2
+    y = 350
 
-    # Decide the text location, color and font
-    d1.text((600, 350), text, fill =(50, 255, 100))
+    draw.text((x, y), text, font=font, fill='white')
 
-    # show and save the image
-    # img.show()
     img.save("media/results.jpg")
+    url = "http://telegram.me/share/url?url=%20Do'stlar%20Bu%20Bot%20judaham%20zo'r" \
+          "%20ekan%20siz%20ham%20harxil turdagi%20Tabriklar%20yasab%20oling%20%20http://t.me/protabrikbot"
     with open(file='media/results.jpg', mode='rb') as photo:
-        await message.answer_photo(photo=photo, caption='Ol ino')
+        await message.answer_photo(photo=photo, caption=f'{text} ismiga rasm tayyor✅', reply_markup=share(url=url))
         await state.finish()
 
 @dp.callback_query_handler(text="4-type")
 async def number_func(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
-    await call.message.answer(text="Ism kiriting...")
+    text = "<b>Kim uchun tayyorlaymiz?</b>\n<i>Ism yozib yuboring...</i>"
+    await call.message.answer(text=text)
     await Type.type4.set()
 
 @dp.message_handler(state=Type.type4)
 async def satte_type1(message: types.Message, state: FSMContext):
     text = message.text
 
-    # gfg_logo.jpeg image opened using open function and
-    # assigned to variable named img
-    img = Image.open('media/4-type.jpg')
+    img = Image.open("media/4-type.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    text_size = draw.textbbox((120, 120), text, font=font)
 
-    # Image is converted into editable form using Draw
-    # function and assigned to d1
-    d1 = ImageDraw.Draw(img)
+    x = (img.width - text_size[2]) / 2
+    y = 350
 
-    # Decide the text location, color and font
-    d1.text((600, 350), text, fill =(50, 255, 100))
+    draw.text((x, y), text, font=font, fill='black')
 
-    # show and save the image
-    # img.show()
     img.save("media/results.jpg")
+    url = "http://telegram.me/share/url?url=%20Do'stlar%20Bu%20Bot%20judaham%20zo'r" \
+          "%20ekan%20siz%20ham%20harxil turdagi%20Tabriklar%20yasab%20oling%20%20http://t.me/protabrikbot"
     with open(file='media/results.jpg', mode='rb') as photo:
-        await message.answer_photo(photo=photo, caption='Ol ino')
+        await message.answer_photo(photo=photo, caption=f'{text} ismiga rasm tayyor✅', reply_markup=share(url=url))
         await state.finish()
 
-# @dp.callback_query_handler(text="1-type")
-# async def number_func(call: types.CallbackQuery, state: FSMContext):
-#     await call.message.delete()
-#     await call.message.answer(text="Ism kiriting...")
-#     await Type.type1.set()
-#
-# @dp.message_handler(state=Type.type1)
-# async def satte_type1(message: types.Message, state: FSMContext):
-#     text = message.text
-#
-#     # gfg_logo.jpeg image opened using open function and
-#     # assigned to variable named img
-#     img = Image.open('media/1-type.jpg')
-#
-#     # Image is converted into editable form using Draw
-#     # function and assigned to d1
-#     d1 = ImageDraw.Draw(img)
-#
-#     # Decide the text location, color and font
-#     d1.text((600, 350), text, fill =(50, 255, 100))
-#
-#     # show and save the image
-#     # img.show()
-#     img.save("media/results.jpg")
-#     with open(file='media/results.jpg', mode='rb') as photo:
-#         await message.answer_photo(photo=photo, caption='Ol ino')
-#         await state.finish()
-
-# @dp.callback_query_handler(text="1-type")
-# async def number_func(call: types.CallbackQuery, state: FSMContext):
-#     await call.message.delete()
-#     await call.message.answer(text="Ism kiriting...")
-#     await Type.type1.set()
-#
-# @dp.message_handler(state=Type.type1)
-# async def satte_type1(message: types.Message, state: FSMContext):
-#     text = message.text
-#
-#     # gfg_logo.jpeg image opened using open function and
-#     # assigned to variable named img
-#     img = Image.open('media/1-type.jpg')
-#
-#     # Image is converted into editable form using Draw
-#     # function and assigned to d1
-#     d1 = ImageDraw.Draw(img)
-#
-#     # Decide the text location, color and font
-#     d1.text((600, 350), text, fill =(50, 255, 100))
-#
-#     # show and save the image
-#     # img.show()
-#     img.save("media/results.jpg")
-#     with open(file='media/results.jpg', mode='rb') as photo:
-#         await message.answer_photo(photo=photo, caption='Ol ino')
-#         await state.finish()
-#
-# @dp.callback_query_handler(text="1-type")
-# async def number_func(call: types.CallbackQuery, state: FSMContext):
-#     await call.message.delete()
-#     await call.message.answer(text="Ism kiriting...")
-#     await Type.type1.set()
-#
-# @dp.message_handler(state=Type.type1)
-# async def satte_type1(message: types.Message, state: FSMContext):
-#     text = message.text
-#
-#     # gfg_logo.jpeg image opened using open function and
-#     # assigned to variable named img
-#     img = Image.open('media/1-type.jpg')
-#
-#     # Image is converted into editable form using Draw
-#     # function and assigned to d1
-#     d1 = ImageDraw.Draw(img)
-#
-#     # Decide the text location, color and font
-#     d1.text((600, 350), text, fill =(50, 255, 100))
-#
-#     # show and save the image
-#     # img.show()
-#     img.save("media/results.jpg")
-#     with open(file='media/results.jpg', mode='rb') as photo:
-#         await message.answer_photo(photo=photo, caption='Ol ino')
-#         await state.finish()
-#
 
 
