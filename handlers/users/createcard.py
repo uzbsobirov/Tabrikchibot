@@ -155,3 +155,22 @@ async def satte_type1(message: types.Message, state: FSMContext):
         await message.answer_photo(photo=photo, caption=f'{text} ismiga rasm tayyor✅', reply_markup=share(url=url))
         await state.finish()
 
+@dp.callback_query_handler(text="6-type")
+async def number_func(call: types.CallbackQuery, state: FSMContext):
+    await call.answer(text="Bu bo'lim sozlanmoqda...", show_alert=True)
+    await state.finish()
+
+@dp.callback_query_handler(text="7-type")
+async def number_func(call: types.CallbackQuery, state: FSMContext):
+    await call.answer(text="Bu bo'lim sozlanmoqda...", show_alert=True)
+    await state.finish()
+
+@dp.callback_query_handler(text="8-type")
+async def number_func(call: types.CallbackQuery, state: FSMContext):
+    await call.answer(text="Bu bo'lim sozlanmoqda...", show_alert=True)
+    await state.finish()
+
+@dp.callback_query_handler(text="9-type")
+async def number_func(call: types.CallbackQuery, state: FSMContext):
+    await call.answer(text="Bu bo'lim sozlanmoqda...", show_alert=True)
+    await state.finish()
