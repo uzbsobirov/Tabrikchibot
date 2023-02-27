@@ -10,6 +10,7 @@ class Type(StatesGroup):
     type6 = State()
     type7 = State()
     type8 = State()
+    type9 = State()
 
 class Panel(StatesGroup):
     stat = State()
