@@ -6,3 +6,4 @@ from . import check
 from . import createcard
 from . import panel
 from . import reklama
+from . import fikr
