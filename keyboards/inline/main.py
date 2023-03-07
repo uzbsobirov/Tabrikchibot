@@ -6,6 +6,10 @@ main = InlineKeyboardMarkup(
             InlineKeyboardButton(
                 text="🌸 Tabrik yasash",
                 callback_data='createcard'
+            ),
+            InlineKeyboardButton(
+                text="📨Fikr bildirish",
+                callback_data="fikr"
             )
         ]
     ]
