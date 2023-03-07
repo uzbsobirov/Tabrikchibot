@@ -29,7 +29,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/1-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    font = ImageFont.truetype("media/cabal.ttf", 62)
     text_size = draw.textbbox((100, 100), text, font=font)
 
     x = (img.width - text_size[2]) / 2
@@ -56,7 +56,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/2-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    font = ImageFont.truetype("media/cabal.ttf", 62)
     text_size = draw.textbbox((100, 100), text, font=font)
 
     x = 160
@@ -84,7 +84,7 @@ async def satte_type3(message: types.Message, state: FSMContext):
 
     img = Image.open("media/3-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    font = ImageFont.truetype("media/cabal.ttf", 62)
     text_size = draw.textbbox((120, 120), text, font=font)
 
     x = (img.width - text_size[2]) / 2
@@ -112,7 +112,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/4-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    font = ImageFont.truetype("media/cabal.ttf", 62)
     text_size = draw.textbbox((120, 120), text, font=font)
 
     x = (img.width - text_size[2]) / 2
@@ -140,7 +140,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/5-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 62)
+    font = ImageFont.truetype("media/cabal.ttf", 62)
     text_size = draw.textbbox((120, 120), text, font=font)
 
     x = (img.width - text_size[2]) / 2
@@ -168,7 +168,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/6-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 36)
+    font = ImageFont.truetype("media/cabal.ttf", 36)
     text_size = draw.textbbox((120, 120), text, font=font)
 
     x = 110
@@ -195,7 +195,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/7-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 36)
+    font = ImageFont.truetype("media/cabal.ttf", 36)
     text_size = draw.textbbox((120, 120), text, font=font)
 
     x = 350
@@ -222,7 +222,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/8-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 36)
+    font = ImageFont.truetype("media/cabal.ttf", 36)
     text_size = draw.textbbox((120, 120), text, font=font)
 
     x = 1200
@@ -249,7 +249,7 @@ async def satte_type1(message: types.Message, state: FSMContext):
 
     img = Image.open("media/9-type.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/PleasantlyPlump-pRv1.ttf", 24)
+    font = ImageFont.truetype("media/cabal.ttf", 24)
     text_size = draw.textbbox((120, 120), text, font=font)
 
     x = 250
