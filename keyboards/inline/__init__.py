@@ -1,3 +1,3 @@
 from . import (
-    main, panel, adver
+    main, panel, adver, adv
 )

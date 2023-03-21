@@ -37,7 +37,7 @@ async def bot_start(message: types.Message, state: FSMContext):
     if len(rows) >= 1:
         # We check if user is not subs to channel
         for row in rows:
-            status = await check(user_id=message.from_user.id, channel=row[1])
+            status = await check(user_id=user_id, channel=row[1])
         if status == False:
             markup = InlineKeyboardMarkup(row_width=1)
             for channel in rows:

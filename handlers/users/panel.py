@@ -1,7 +1,7 @@
 from loader import dp, db, bot
 from data.config import ADMINS
 from states.one import Panel
-from keyboards.inline.panel import back, typesads, add_sponsor, sponsor_add
+from keyboards.inline.panel import back, add_sponsor, sponsor_add
 from states.admin import AddSponsor, DeleteSponsor
 
 from datetime import date
